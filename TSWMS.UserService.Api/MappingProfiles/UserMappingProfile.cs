@@ -10,5 +10,9 @@ public class UserMappingProfile : Profile
     {
         CreateMap<User, UserDto>();
         CreateMap<UserDto, User>();
+
+        CreateMap<CreateUserDto, User>()
+            .ForMember(dest => dest.PasswordHash, opt => opt.MapFrom(src => src.Password))
+            .ForMember(dest => dest.UserId, opt => opt.Ignore());
     }
 }
