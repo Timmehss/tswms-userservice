@@ -12,8 +12,8 @@ using TSWMS.UserService.Data;
 namespace TSWMS.UserService.Data.Migrations
 {
     [DbContext(typeof(UsersDbContext))]
-    [Migration("20250318172901_InitUserDb")]
-    partial class InitUserDb
+    [Migration("20250420111053_InitDb")]
+    partial class InitDb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -35,7 +35,7 @@ namespace TSWMS.UserService.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Password")
+                    b.Property<string>("PasswordHash")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -48,19 +48,19 @@ namespace TSWMS.UserService.Data.Migrations
                         {
                             UserId = new Guid("52348777-7a0e-4139-9489-87dff9d47b7e"),
                             Email = "user1@example.com",
-                            Password = "password1"
+                            PasswordHash = "password1"
                         },
                         new
                         {
                             UserId = new Guid("7ee4caea-21e9-4261-947d-8305df18ff45"),
                             Email = "user2@example.com",
-                            Password = "password2"
+                            PasswordHash = "password2"
                         },
                         new
                         {
                             UserId = new Guid("27d0bb84-4420-441c-a503-264f1e365c05"),
                             Email = "user3@example.com",
-                            Password = "password3"
+                            PasswordHash = "password3"
                         });
                 });
 #pragma warning restore 612, 618

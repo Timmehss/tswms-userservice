@@ -5,4 +5,5 @@ namespace TSWMS.UserService.Shared.Interfaces;
 public interface IUserManager
 {
     Task<IEnumerable<User>> GetUsersAsync();
+    Task<Guid> CreateUserAsync(User createUser);
 }
