@@ -1,7 +1,5 @@
-﻿using Microsoft.Extensions.Options;
+﻿using Dapr.Client;
 using System.Security.Cryptography;
-using System.Text;
-using TSWMS.UserService.Shared.Options;
 
 namespace TSWMS.UserService.Shared.Helpers;
 
@@ -10,11 +8,15 @@ public class AesEncryptionHelper
     private readonly byte[] _key;
     private readonly byte[] _iv;
 
-    public AesEncryptionHelper(IOptions<EncryptionOptions> options)
+    public AesEncryptionHelper(DaprClient daprClient)
     {
-        var settings = options.Value;
-        _key = Encoding.UTF8.GetBytes(settings.Key);
-        _iv = Encoding.UTF8.GetBytes(settings.IV);
+        // Fetch AES key & IV from local Dapr secret store
+        var keySecret = daprClient.GetSecretAsync("local", "aesKey").GetAwaiter().GetResult();
+        var ivSecret = daprClient.GetSecretAsync("local", "aesIV").GetAwaiter().GetResult();
+
+        // Convert Base64 secrets to byte[]
+        _key = Convert.FromBase64String(keySecret["aesKey"]);
+        _iv = Convert.FromBase64String(ivSecret["aesIV"]);
     }
 
     public string EncryptString(string plainText)

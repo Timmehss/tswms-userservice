@@ -5,13 +5,13 @@
 
 #endregion
 
+using Dapr.Client;
 using Microsoft.EntityFrameworkCore;
 using TSWMS.UserService.Api.MappingProfiles;
 using TSWMS.UserService.Api.Middlewares;
 using TSWMS.UserService.Configurations;
 using TSWMS.UserService.Data;
 using TSWMS.UserService.Shared.Helpers;
-using TSWMS.UserService.Shared.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -55,29 +55,32 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddTransient<AesEncryptionHelper>();
+builder.Services.AddSingleton<DaprClient>(sp => new DaprClientBuilder().Build());
+builder.Services.AddSingleton<AesEncryptionHelper>();
 
-// Encryption key
-var encryptionKey = Environment.GetEnvironmentVariable("EncryptionKey");
+//builder.Services.AddTransient<AesEncryptionHelper>();
 
-if (string.IsNullOrEmpty(encryptionKey))
-{
-    throw new InvalidOperationException("EncryptionKey is missing!");
-}
+//// Encryption key
+//var encryptionKey = Environment.GetEnvironmentVariable("EncryptionKey");
 
-// IV key
-var encryptionIV = Environment.GetEnvironmentVariable("EncryptionIV");
+//if (string.IsNullOrEmpty(encryptionKey))
+//{
+//    throw new InvalidOperationException("EncryptionKey is missing!");
+//}
 
-if (string.IsNullOrEmpty(encryptionIV))
-{
-    throw new InvalidOperationException("EncryptionIV is missing!");
-}
+//// IV key
+//var encryptionIV = Environment.GetEnvironmentVariable("EncryptionIV");
 
-builder.Services.Configure<EncryptionOptions>(options =>
-{
-    options.Key = encryptionKey;
-    options.IV = encryptionIV;
-});
+//if (string.IsNullOrEmpty(encryptionIV))
+//{
+//    throw new InvalidOperationException("EncryptionIV is missing!");
+//}
+
+//builder.Services.Configure<EncryptionOptions>(options =>
+//{
+//    options.Key = encryptionKey;
+//    options.IV = encryptionIV;
+//});
 
 var app = builder.Build();
 
