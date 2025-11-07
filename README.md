@@ -20,5 +20,5 @@ docker-compose -f docker-compose.prod.yml -p tswms up --pull always --detach
 
 ### Run Dapr Sidecar
 ```bash
-dapr run --app-id userservice --app-port 3100 -- dotnet watch run --project ./TSWMS.UserService.Api/TSWMS.UserService.Api.csproj
+dapr run --app-id userservice --app-port 3100 --components-path ./dapr/components -- dotnet watch run --project ./TSWMS.UserService.Api/TSWMS.UserService.Api.csproj
 ```

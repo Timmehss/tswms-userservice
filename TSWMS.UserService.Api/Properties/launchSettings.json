@@ -6,8 +6,8 @@
       "launchUrl": "swagger",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "EncryptionKey": "kpxNOwXqMjXh0XgIc7zO65Rfblpevx09",
-        "EncryptionIV": "4I4Xe1v30y2EnxB2"
+        "EncryptionKey": "a3B4Tk93WHFNalhoMFhnSWM3ek82NVJmYmxwZXZ4MDk=",
+        "EncryptionIV": "NEk0WGUxdjMweTJFbnhCMg=="
       },
       "dotnetRunMessages": true,
       "applicationUrl": "http://localhost:3100"

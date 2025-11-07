@@ -11,8 +11,8 @@ public class AesEncryptionHelper
     public AesEncryptionHelper(DaprClient daprClient)
     {
         // Fetch AES key & IV from local Dapr secret store
-        var keySecret = daprClient.GetSecretAsync("local", "aesKey").GetAwaiter().GetResult();
-        var ivSecret = daprClient.GetSecretAsync("local", "aesIV").GetAwaiter().GetResult();
+        var keySecret = daprClient.GetSecretAsync("local-secret-store", "aesKey").GetAwaiter().GetResult();
+        var ivSecret = daprClient.GetSecretAsync("local-secret-store", "aesIV").GetAwaiter().GetResult();
 
         // Convert Base64 secrets to byte[]
         _key = Convert.FromBase64String(keySecret["aesKey"]);

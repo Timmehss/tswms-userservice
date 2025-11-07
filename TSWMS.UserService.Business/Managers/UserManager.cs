@@ -17,8 +17,31 @@ public class UserManager : IUserManager
 
     public async Task<IEnumerable<User>> GetUsersAsync()
     {
-        return await _userRepository.GetUsers();
+        var users = await _userRepository.GetUsers();
+
+        // Decrypt email for each user
+        foreach (var user in users)
+        {
+            if (!string.IsNullOrEmpty(user.Email))
+            {
+                try
+                {
+                    user.Email = _encryptionHelper.DecryptString(user.Email);
+                }
+                catch
+                {
+
+                }
+            }
+        }
+
+        return users;
     }
+
+    //public async Task<IEnumerable<User>> GetUsersAsync()
+    //{
+    //    return await _userRepository.GetUsers();
+    //}
 
     public async Task<Guid> CreateUserAsync(User user)
     {
