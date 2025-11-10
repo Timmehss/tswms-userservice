@@ -38,11 +38,6 @@ public class UserManager : IUserManager
         return users;
     }
 
-    //public async Task<IEnumerable<User>> GetUsersAsync()
-    //{
-    //    return await _userRepository.GetUsers();
-    //}
-
     public async Task<Guid> CreateUserAsync(User user)
     {
         // Encrypt email
